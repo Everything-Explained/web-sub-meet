@@ -50,6 +50,10 @@ function displayTime(
   const {days, hours, minutes, seconds} = relativeTime;
   const [dayEl, hourEl, minuteEl, secondEl] = numEls;
 
+  const zeroHoursLeft   = days == 0       && hours   == 0;
+  const zeroMinutesLeft = zeroHoursLeft   && minutes == 0;
+  const tenSecondsLeft  = zeroMinutesLeft && seconds <= 10;
+
   if (days <= 3) {
     toggleElColor(dayEl, 'green');
   }
@@ -72,17 +76,17 @@ function displayTime(
     toggleElColor(hourEl, 'yellow');
   }
 
-  if (days == 0 && hours == 0) {
+  if (zeroHoursLeft) {
     toggleElColor(hourEl, 'red');
     toggleElColor(minuteEl, 'yellow');
   }
 
-  if (days == 0 && hours == 0 && minutes == 0) {
+  if (zeroMinutesLeft) {
     toggleElColor(minuteEl, 'red');
     toggleElColor(secondEl, 'yellow');
   }
 
-  if (days == 0 && hours == 0 && minutes == 0 && seconds <= 10) {
+  if (tenSecondsLeft) {
     toggleElColor(secondEl, 'red');
   }
 
