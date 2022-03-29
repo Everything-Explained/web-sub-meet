@@ -50,33 +50,40 @@ function displayTime(
   const {days, hours, minutes, seconds} = relativeTime;
   const [dayEl, hourEl, minuteEl, secondEl] = numEls;
 
-  if (days <= 2) {
+  if (days <= 3) {
     toggleElColor(dayEl, 'green');
   }
 
   if (days <= 1) {
     toggleElColor(dayEl, 'yellow');
-    if (hours <= 8 || days == 0) {
-      toggleElColor(hourEl, 'green');
-      toggleElColor(minuteEl, 'green');
-      toggleElColor(secondEl, 'green');
-    }
   }
 
-  if (days == 0) {
-    if (hours <= 12) toggleElColor(dayEl, 'red');
-    if (hours <= 2) {
-      toggleElColor(hourEl, 'yellow');
-      if (hours == 0) {
-        toggleElColor(hourEl, 'red');
-        toggleElColor(minuteEl, 'yellow');
-        if (minutes == 0) {
-          toggleElColor(minuteEl, 'red');
-          toggleElColor(secondEl, 'yellow');
-          if (seconds <= 10) toggleElColor(secondEl, 'red');
-        }
-      }
-    }
+  if (days <= 1 && (hours <= 8 || days == 0)) {
+    toggleElColor(hourEl, 'green');
+    toggleElColor(minuteEl, 'green');
+    toggleElColor(secondEl, 'green');
+  }
+
+  if (days == 0 && hours <= 12) {
+    toggleElColor(dayEl, 'red');
+  }
+
+  if (days == 0 && hours <= 8) {
+    toggleElColor(hourEl, 'yellow');
+  }
+
+  if (days == 0 && hours == 0) {
+    toggleElColor(hourEl, 'red');
+    toggleElColor(minuteEl, 'yellow');
+  }
+
+  if (days == 0 && hours == 0 && minutes == 0) {
+    toggleElColor(minuteEl, 'red');
+    toggleElColor(secondEl, 'yellow');
+  }
+
+  if (days == 0 && hours == 0 && minutes == 0 && seconds <= 10) {
+    toggleElColor(secondEl, 'red');
   }
 
   dayEl.innerText    = days.toString();
