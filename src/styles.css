@@ -40,12 +40,12 @@ h1 {
 h2 {
   position       : relative;
   display        : block;
-  margin-bottom  : -2.3vw;
+  margin-bottom  : clamp(-25px, -2.3vw, -5px);
   top            : 20vh;
   width          : 100%;
   text-align     : center;
   letter-spacing : 2px;
-  font-size      : clamp(1.3rem, 4vw, 3rem);
+  font-size      : clamp(1.3rem, 4.3vw, 3.2rem);
   font-family    : Comfortaa;
   font-weight    : 300;
   color          : hsl(221, 19%, 55%);
