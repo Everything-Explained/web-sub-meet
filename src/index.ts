@@ -137,12 +137,6 @@ function toggleElColor(el: HTMLElement, color: 'green'|'yellow'|'red') {
 }
 
 
-function cleanISO(ISODate: string) {
-  const [date] = ISODate.split('T');
-  return `${date}T00:00:00.000Z`;
-}
-
-
 function padNumber(num: number) {
   return (num < 10) ? `0${num}` : `${num}`;
 }
