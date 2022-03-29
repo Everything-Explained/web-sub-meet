@@ -1,54 +1,54 @@
 *, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  user-select: none;
+  margin      : 0;
+  padding     : 0;
+  box-sizing  : border-box;
+  user-select : none;
 }
 
 
 body {
-  overflow: hidden;
-  background-color: hsl(213, 27%, 8%);
-  color: hsl(207, 30%, 77%);
-  font-size: 1em;
-  font-weight: 300;
+  overflow         : hidden;
+  background-color : hsl(213, 27%, 8%);
+  color            : hsl(207, 30%, 77%);
+  font-size        : normal;
+  font-weight      : 300;
 }
 
 
 main {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 1s ease-in, visibility 1s ease-in;
+  visibility : hidden;
+  opacity    : 0;
+  transition : opacity 1s ease-in, visibility 1s ease-in;
 }
 main.show {
-  opacity: 1;
-  visibility: visible;
+  visibility : visible;
+  opacity    : 1;
 }
 
 
 h1 {
-  position: relative;
-  top: 13vh;
-  width: 100%;
-  font-family: Comfortaa;
-  font-weight: 300;
-  font-size: clamp(1.6rem, 5vw, 3.5rem);
-  text-align: center;
+  position    : relative;
+  top         : 13vh;
+  width       : 100%;
+  font-family : Comfortaa;
+  font-size   : clamp(1.6rem, 5vw, 3.5rem);
+  font-weight : 300;
+  text-align  : center;
 }
 
 
 h2 {
-  position: relative;
-  display: block;
-  margin-bottom: -2.3vw;
-  top: 20vh;
-  width: 100%;
-  text-align: center;
-  letter-spacing: 2px;
-  font-size: clamp(1.3rem, 4vw, 3rem);
-  font-family: Comfortaa;
-  font-weight: 300;
-  color: hsl(221, 19%, 55%);
+  position       : relative;
+  display        : block;
+  margin-bottom  : -2.3vw;
+  top            : 20vh;
+  width          : 100%;
+  text-align     : center;
+  letter-spacing : 2px;
+  font-size      : clamp(1.3rem, 4vw, 3rem);
+  font-family    : Comfortaa;
+  font-weight    : 300;
+  color          : hsl(221, 19%, 55%);
 }
 
 
@@ -65,10 +65,10 @@ h2 {
 
 
 sub {
-  margin-right: clamp(1rem, 4vw, 4.5rem);
-  font-size: clamp(1rem, 7vw, 5rem);
-  font-family: Roboto Mono;
-  color: hsl(221, 19%, 36%);
+  margin-right : clamp(1rem, 4vw, 4.5rem);
+  font-size    : clamp(1rem, 7vw, 5rem);
+  font-family  : Roboto Mono;
+  color        : hsl(221, 19%, 36%);
 }
 sub:last-child {
   margin-right: 0;
