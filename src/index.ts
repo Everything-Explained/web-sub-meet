@@ -13,9 +13,17 @@ interface TimeUnits {
 setTimeout(() => {
   const numEls = document.querySelectorAll<HTMLElement>('.time-container .digit');
   const dateEl = document.getElementById('date');
-  const nextMeeting = findFutureRelativeToNow(new Date('2022-03-27T19:00:00.000Z'));
+  // Default date: 2022-03-27T19:00:00.000Z
+  const nextMeeting = findFutureRelativeToNow(new Date(Date.UTC(2022, 2, 27, 19)));
   if (dateEl) {
-    const dateTime = (new Date(nextMeeting)).toDateString();
+    const locale = Intl.NumberFormat().resolvedOptions().locale;
+    const dateTime = new Intl.DateTimeFormat(locale, {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit'
+    }).format(nextMeeting);
     dateEl.innerText = dateTime;
   }
   startCountdown(numEls, nextMeeting);
