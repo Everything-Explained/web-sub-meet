@@ -13,7 +13,7 @@ interface TimeUnits {
 setTimeout(() => {
   const numEls = document.querySelectorAll<HTMLElement>('.time-container .digit');
   const dateEl = document.getElementById('date');
-  const nextMeeting = findFutureRelativeToNow(new Date('2022-03-27T19:20:00.000Z'));
+  const nextMeeting = findFutureRelativeToNow(new Date('2022-03-27T19:00:00.000Z'));
   if (dateEl) {
     const dateTime = (new Date(nextMeeting)).toDateString();
     dateEl.innerText = dateTime;
