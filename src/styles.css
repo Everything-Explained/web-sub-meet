@@ -1,0 +1,101 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+
+body {
+  overflow: hidden;
+  background-color: hsl(213, 27%, 8%);
+  color: hsl(207, 30%, 77%);
+  font-size: 1em;
+  font-weight: 300;
+}
+
+
+main {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease-in, visibility 1s ease-in;
+}
+main.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+h1 {
+  position: relative;
+  top: 13vh;
+  width: 100%;
+  font-family: Comfortaa;
+  font-weight: 300;
+  font-size: clamp(1.6rem, 5vw, 3.5rem);
+  text-align: center;
+}
+
+
+h2 {
+  position: relative;
+  display: block;
+  margin-bottom: -2.3vw;
+  top: 20vh;
+  width: 100%;
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: clamp(1.3rem, 4vw, 3rem);
+  font-family: Comfortaa;
+  font-weight: 300;
+  color: hsl(221, 19%, 55%);
+}
+
+
+.time-container {
+  position        : relative;
+  top             : 20vh;
+  display         : flex;
+  text-align      : center;
+  align-items     : baseline;
+  justify-content : center;
+  font-size       : clamp(2rem, 14.5vw, 8rem);
+  font-family     : Roboto Mono;
+}
+
+
+sub {
+  margin-right: clamp(1rem, 4vw, 4.5rem);
+  font-size: clamp(1rem, 7vw, 5rem);
+  font-family: Roboto Mono;
+  color: hsl(221, 19%, 36%);
+}
+sub:last-child {
+  margin-right: 0;
+}
+
+
+
+.red {
+  color: hsl(355, 100%, 67%);
+}
+
+
+.green {
+  color: hsl(153, 80%, 68%);
+}
+
+
+.yellow {
+  color: hsl(49, 100%, 50%);
+}
+
+
+
+
+
+
+
+
+
+

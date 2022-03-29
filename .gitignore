@@ -1,0 +1,11 @@
+# Folders
+node_modules
+
+# Files
+*.js
+*.map
+*.tsbuildinfo
+config.json
+
+
+
