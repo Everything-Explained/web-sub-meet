@@ -15,18 +15,13 @@ body {
 }
 
 
-main {
-  visibility : hidden;
-  opacity    : 0;
-  transition : opacity 1s ease-in, visibility 1s ease-in;
-}
-main.show {
-  visibility : visible;
-  opacity    : 1;
+.countdown {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s ease-in, visibility 0.5s ease-in;
 }
 
-
-h1 {
+.countdown h1 {
   position    : relative;
   top         : 13vh;
   width       : 100%;
@@ -36,8 +31,7 @@ h1 {
   text-align  : center;
 }
 
-
-h2 {
+.countdown h2 {
   position       : relative;
   display        : block;
   margin-bottom  : clamp(-25px, -2.3vw, -5px);
@@ -51,8 +45,7 @@ h2 {
   color          : hsl(221, 19%, 55%);
 }
 
-
-.time-container {
+.countdown__numbers {
   position        : relative;
   top             : 20vh;
   display         : flex;
@@ -63,17 +56,54 @@ h2 {
   font-family     : Roboto Mono;
 }
 
-
-sub {
+.countdown__numbers sub {
   margin-right : clamp(1rem, 4vw, 4.5rem);
   font-size    : clamp(1rem, 7vw, 5rem);
   font-family  : Roboto Mono;
   color        : hsl(221, 19%, 36%);
 }
-sub:last-child {
+.countdown__numbers sub:last-child {
   margin-right: 0;
 }
 
+
+.session__state {
+  position     : absolute;
+  width        : 100%;
+  top          : 20vh;
+  visibility   : hidden;
+  opacity      : 0;
+  text-align   : center;
+  font-size    : clamp(2rem, 15vw, 15rem);
+  font-family  : Comfortaa;
+  font-variant : small-caps;
+  transition   : opacity 0.7s ease-in, visibility 0.7s ease-in;
+}
+.session__state.--animate {
+  animation: blink 0.5s infinite alternate linear;
+}
+
+.session__started {
+  text-shadow  : 0 0 10px hsl(79, 100%, 70%);
+  color        : hsl(79, 100%, 70%);
+}
+
+.session__ended {
+  text-shadow  : 0 0 20px hsl(270, 100%, 59%);
+  color        : hsl(305, 100%, 70%);
+}
+
+
+@keyframes blink {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0.65; transform: scale(0.97);}
+}
+
+
+.--show {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
 
 
 .red {

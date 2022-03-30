@@ -11,15 +11,19 @@
   <title>Document</title>
 </head>
 <body>
-  <main>
-    <h1>Meeting Countdown</h1>
-    <h2 id="date"></h2>
-    <div id="time" class="time-container">
-      <div class="digit days"></div><sub>d</sub>
-      <div class="digit hours"></div><sub>h</sub>
-      <div class="digit minutes"></div><sub>m</sub>
-      <div class="digit seconds"></div><sub>s</sub>
+  <main class="show">
+    <div class="countdown">
+      <h1 class="countdown__title">Meeting Countdown</h1>
+      <h2 class="countdown__date"></h2>
+      <div class="countdown__numbers">
+        <div class="countdown__number"></div><sub>d</sub>
+        <div class="countdown__number"></div><sub>h</sub>
+        <div class="countdown__number"></div><sub>m</sub>
+        <div class="countdown__number"></div><sub>s</sub>
+      </div>
     </div>
+    <div class="session__state session__started">meeting in progress</div>
+    <div class="session__state session__ended">after-party in progress</div>
   </main>
   <script src="./index.js"></script>
 </body>

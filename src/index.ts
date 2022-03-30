@@ -8,27 +8,32 @@ interface TimeUnits {
 
 
 
+const _originDate = Date.UTC(2022, 2, 23, 18, 23);
+const _countdownEl = document.getElementsByClassName('countdown')[0] as HTMLElement|undefined;
 
 
-setTimeout(() => {
-  const numEls = document.querySelectorAll<HTMLElement>('.time-container .digit');
-  const dateEl = document.getElementById('date');
-  // Default date: 2022-03-27T19:00:00.000Z
-  const nextMeeting = findFutureRelativeToNow(new Date(Date.UTC(2022, 2, 27, 19)));
-  if (dateEl) {
-    const locale = Intl.NumberFormat().resolvedOptions().locale;
-    const dateTime = new Intl.DateTimeFormat(locale, {
-      weekday: 'short',
-      day: 'numeric',
-      month: 'short',
-      hour: '2-digit',
-      minute: '2-digit'
-    }).format(nextMeeting);
-    dateEl.innerText = dateTime;
-  }
-  startCountdown(numEls, nextMeeting);
-  document.getElementsByTagName('main')[0].classList.add('show');
-}, 300);
+
+const numEls = document.querySelectorAll<HTMLElement>('.countdown__numbers .countdown__number');
+const dateEl = document.getElementsByClassName('countdown__date')[0] as HTMLElement;
+// Default date: 2022-03-27T19:00:00.000Z
+const nextMeeting = findFutureRelativeToNow(new Date(_originDate));
+
+if (dateEl) {
+  const locale = Intl.NumberFormat().resolvedOptions().locale;
+  const dateTime = new Intl.DateTimeFormat(locale, {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short',
+    hour: '2-digit',
+    minute: '2-digit'
+  }).format(nextMeeting);
+  dateEl.innerText = dateTime;
+}
+startCountdown(numEls, nextMeeting);
+
+
+
+
 
 
 
@@ -36,16 +41,72 @@ function startCountdown(numEls: NodeListOf<HTMLElement>, nextMeeting: number) {
   if (numEls.length != 4) {
     throw Error('Missing Time Elements');
   }
+  const countDownEl = document.getElementsByClassName('countdown')[0] as HTMLElement;
 
-  const interval = setInterval(() => displayTime(nextMeeting, numEls, (time) => {
-    const {days, hours, minutes, seconds} = time;
-    if (   days == 0
-        && hours == 0
-        && minutes == 0
-        && seconds == 0
-    ) { clearInterval(interval); }
-  }), 1000);
-  displayTime(nextMeeting, numEls, null);
+  const interval = setInterval(() => {
+    const hoursFromLastMeeting = findHoursFromLastWeek(nextMeeting);
+
+    if (hoursFromLastMeeting <= 1.30) {
+      displayState('started');
+      return;
+    }
+
+    if (hoursFromLastMeeting <= 4.3) {
+      displayState('ended');
+      return;
+    }
+
+    displayTime(nextMeeting, numEls, (time) => {
+      const {days, hours, minutes, seconds} = time;
+      if (   days == 0
+          && hours == 0
+          && minutes == 0
+          && seconds == 0
+      ) {
+        clearInterval(interval);
+        setTimeout(() => {
+          startCountdown(numEls, findFutureRelativeToNow(new Date(_originDate)));
+        }, 1100);
+      }
+    });
+
+    if (!countDownEl.classList.contains('--show')) {
+      displayState('countdown');
+      countDownEl.classList.add('--show');
+    }
+  }, 1000);
+}
+
+
+function displayState(state: 'countdown'|'started'|'ended') {
+  const [startedEl, endedEl] = document.getElementsByClassName('session__state') as HTMLCollectionOf<HTMLElement>;
+
+  if (!startedEl || !endedEl) throw Error('Missing Start/End Session Elements');
+  if (!_countdownEl)          throw Error('Missing Countdown Element');
+
+  if (state == 'started') {
+    _countdownEl.classList.remove('--show');
+    startedEl.classList.add('--show');
+    setTimeout(() => startedEl.classList.add('--animate'), 720);
+  }
+
+  if (state == 'ended') {
+    startedEl.classList.remove('--animate');
+    startedEl.classList.remove('--show');
+    endedEl.classList.add('--show');
+    setTimeout(() => endedEl.classList.add('--animate'), 720);
+  }
+
+  if (state == 'countdown') {
+    endedEl.classList.remove('--animate');
+    endedEl.classList.remove('--show');
+  }
+}
+
+
+function findHoursFromLastWeek(nextWeek: number) {
+  const week = 7 * 24 * 60 * 60 * 1000;
+  return (week - (nextWeek - Date.now())) / 1000 / 60 / 60;
 }
 
 
