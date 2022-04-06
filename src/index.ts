@@ -8,15 +8,21 @@ interface TimeUnits {
 
 
 
-const _originDate = Date.UTC(2022, 2, 23, 18, 23);
-const _countdownEl = document.getElementsByClassName('countdown')[0] as HTMLElement|undefined;
 
 
 
-const numEls = document.querySelectorAll<HTMLElement>('.countdown__numbers .countdown__number');
-const dateEl = document.getElementsByClassName('countdown__date')[0] as HTMLElement;
+
 // Default date: 2022-03-27T19:00:00.000Z
-const nextMeeting = findFutureRelativeToNow(new Date(_originDate));
+const _originDate   = Date.UTC(2022, 2, 27, 19);
+const _countdownEl  = document.getElementsByClassName('countdown')[0] as HTMLElement|undefined;
+const _mainEl       = document.getElementsByClassName('main')[0];
+const _legendEl     = document.getElementsByClassName('legend')[0] as HTMLElement;
+const _legendIconEl = document.getElementsByClassName('legend__icon')[0] as HTMLElement;
+const numEls        = document.querySelectorAll<HTMLElement>('.countdown__numbers .countdown__number');
+const dateEl        = document.getElementsByClassName('countdown__date')[0] as HTMLElement;
+const nextMeeting   = findFutureRelativeToNow(new Date(_originDate));
+
+if (!_legendIconEl) throw Error('Missing Legend Icon Element');
 
 if (dateEl) {
   const locale = Intl.NumberFormat().resolvedOptions().locale;
@@ -30,6 +36,26 @@ if (dateEl) {
   dateEl.innerText = dateTime;
 }
 startCountdown(numEls, nextMeeting);
+if (!_mainEl) throw Error('Missing Main Element');
+setTimeout(() => {
+  _mainEl.classList.add('--show');
+
+  _legendIconEl.addEventListener('click', () => {
+    if (!_legendEl) throw Error('Missing Legend Element');
+    if (!_countdownEl) throw Error('Missing Countdown Element');
+
+    if (_legendEl.classList.contains('--show')) {
+      _legendEl.classList.remove('--show');
+      _countdownEl.classList.add('--show');
+      _legendIconEl.classList.remove('--animate');
+      return;
+    }
+
+    _countdownEl.classList.remove('--show');
+    _legendEl.classList.add('--show');
+    _legendIconEl.classList.add('--animate');
+  });
+}, 500);
 
 
 
@@ -41,7 +67,8 @@ function startCountdown(numEls: NodeListOf<HTMLElement>, nextMeeting: number) {
   if (numEls.length != 4) {
     throw Error('Missing Time Elements');
   }
-  const countDownEl = document.getElementsByClassName('countdown')[0] as HTMLElement;
+
+  if (!_countdownEl) throw Error('Missing Countdown Element');
 
   const interval = setInterval(() => {
     const hoursFromLastMeeting = findHoursFromLastWeek(nextMeeting);
@@ -70,10 +97,11 @@ function startCountdown(numEls: NodeListOf<HTMLElement>, nextMeeting: number) {
       }
     });
 
-    if (!countDownEl.classList.contains('--show')) {
-      displayState('countdown');
-      countDownEl.classList.add('--show');
-    }
+    if (_legendEl.classList.contains('--show')) return;
+    if (_countdownEl.classList.contains('--show')) return;
+
+    displayState('countdown');
+    _countdownEl.classList.add('--show');
   }, 1000);
 }
 
