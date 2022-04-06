@@ -91,7 +91,7 @@ body {
   margin-bottom: 0;
 }
 .legend__content > ul :nth-child(1)::before {
-  background-color: hsl(207, 70%, 77%);
+  background-color: hsl(207, 30%, 77%);
 }
 .legend__content > ul :nth-child(2)::before {
   background-color: hsl(153, 56%, 67%);
